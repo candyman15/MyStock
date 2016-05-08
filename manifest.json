@@ -1,0 +1,19 @@
+{
+  "manifest_version": 1,
+  "name": "My Stock(내 주식)",
+  "description": "내 관심 주식을 간편하게 보기",
+  "version": "1.0",
+  "browser_action": {
+    "default_icon": "images/icon128.png",
+    "default_popup": "popup.html"
+  },
+  "icons": {
+    "16": "images/icon16.png",
+    "48": "images/icon48.png",
+    "128": "images/icon128.png"
+  },
+  "permissions": [
+    "storage",
+    "tab"
+  ]
+}

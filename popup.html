@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Domain Changer</title>
+    <style>
+        BODY {width : 800px; min-height:100px;}
+    </style>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <div class="panel panel-primary" style="margin-top: 10px;">
+        <div class=panel-heading>
+            <h3 class=panel-title>My Stock</h3>
+        </div>
+        <div class=panel-body id="title">
+            <div class="input-group">
+                <input type="text" id="searchText" class="form-control" placeholder="Search">
+                  <span class="input-group-btn">
+                    <button class="btn btn-primary" id="searchBtn" type="button">
+                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                    </button>
+                  </span>
+            </div>
+        </div>
+        <div class=panel-body style="padding-top:0px;">
+            <div class="row" id="body">
+            </div>
+        </div>
+        <div class=panel-body style="display:none; padding-top:0px;" id="alert">
+            <div class="alert alert-danger" role="alert"></div>
+        </div>
+    </div>
+</div> <!-- /container -->
+
+<script src="js/jquery-2.1.4.min.js"></script>
+<script src="bootstrap/js/bootstrap.min.js"></script>
+<!--<script src="../javascripts/angular.js"></script>-->
+<script src="js/popup.js"></script>
+</body>
+</html>
