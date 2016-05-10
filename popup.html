@@ -16,20 +16,42 @@
         <div class=panel-heading>
             <h3 class=panel-title>My Stock</h3>
         </div>
-        <div class=panel-body id="title">
-            <div class="input-group">
-                <input type="text" id="searchText" class="form-control" placeholder="Search">
-                  <span class="input-group-btn">
-                    <button class="btn btn-primary" id="searchBtn" type="button">
-                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
                     </button>
-                  </span>
-            </div>
-        </div>
+                    <a class="navbar-brand" href="#">Brand</a>
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <form class="navbar-form navbar-left" role="search">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Search" id="searchText">
+                        </div>
+
+                    </form>
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </nav>
+
         <div class=panel-body style="padding-top:0px;">
-            <div class="row" id="body">
+            <div class="row" id="search">
             </div>
         </div>
+
+        <div class=panel-body style="padding-top:0px;">
+            <div class="row" id="interest">
+            </div>
+        </div>
+
         <div class=panel-body style="display:none; padding-top:0px;" id="alert">
             <div class="alert alert-danger" role="alert"></div>
         </div>

@@ -9,9 +9,18 @@ $(document).ready(function() {
 
     //localStorage.setItem("save","");
     //localStorage.clear();
-    interestCompanyName.push(localStorage.getItem(STORAGE_KEY_COMPANY_NAME));
-    interestCompanyCode.push(localStorage.getItem(STORAGE_KEY_COMPANY_CODE));
-    
+    if(localStorage.getItem(STORAGE_KEY_COMPANY_NAME) == null){
+        interestCompanyName = [];
+    }else{
+        interestCompanyName.push(localStorage.getItem(STORAGE_KEY_COMPANY_NAME));
+    }
+
+    if(localStorage.getItem(STORAGE_KEY_COMPANY_CODE) == null){
+        interestCompanyCode = [];
+    }else{
+        interestCompanyCode.push(localStorage.getItem(STORAGE_KEY_COMPANY_CODE));
+    }
+
     console.info(localStorage.getItem(STORAGE_KEY_COMPANY_NAME));
     console.info(localStorage.getItem(STORAGE_KEY_COMPANY_CODE));
     makeInterestList();
@@ -29,7 +38,7 @@ function attachEvent(){
 }
 
 function searchCompanyCode(name){
-    $("#body").html("");
+    $("#search").html("");
 
     var requestUrl = "http://ac.finance.naver.com:11002/ac?_callback=&q="+name+"&q_enc=euc-kr&t_koreng=1&st=111&r_lt=111";
     console.info("requestUrl:"+requestUrl);
@@ -57,7 +66,7 @@ function searchCompanyCode(name){
                     "</div>" +
                     "</div>";
 
-                $("#body").append(innerHtml);
+                $("#search").append(innerHtml);
             }
         }
     }
@@ -107,8 +116,9 @@ function searchCompanyCode(name){
 }
 
 function makeInterestList(){
-    var code = JSON.parse(localStorage.getItem(STORAGE_KEY_COMPANY_CODE));
-    var name = JSON.parse(localStorage.getItem(STORAGE_KEY_COMPANY_NAME));
+    var code = localStorage.getItem(STORAGE_KEY_COMPANY_CODE).split(",");
+    var name = localStorage.getItem(STORAGE_KEY_COMPANY_NAME).split(",");
+
 
     for(var i in code){
 
@@ -122,7 +132,7 @@ function makeInterestList(){
             "</div>" +
             "</div>";
 
-        $("#body").append(innerHtml);
+        $("#interest").append(innerHtml);
     }
 }
 
@@ -133,17 +143,19 @@ function addInterest(items){
     //for(var i=0; i < value.length; i++){
     //    company.push(value[i]);
     //}
-
-    interestCompanyCode.push(value[0]);
-    interestCompanyName.push(value[1]);
-
     console.info("value[0] :" + value[0]);
     console.info("value[1] :" + value[1]);
 
-    localStorage.setItem(STORAGE_KEY_COMPANY_CODE, JSON.stringify(interestCompanyCode));
-    localStorage.setItem(STORAGE_KEY_COMPANY_NAME, JSON.stringify(interestCompanyName));
+    if(value[0] != null || value[1] != null){
+        interestCompanyCode.push(value[0]);
+        interestCompanyName.push(value[1]);
 
-    //
+        localStorage.setItem(STORAGE_KEY_COMPANY_CODE, interestCompanyCode);
+        localStorage.setItem(STORAGE_KEY_COMPANY_NAME, interestCompanyName);
+
+        alert(value[1] + "이 등록되었습니다.");
+    }
+
 }
 
 
