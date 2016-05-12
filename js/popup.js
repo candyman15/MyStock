@@ -41,20 +41,20 @@ function searchCompanyCode(name){
     $("#panel_search").show();
     $("#search").html("");
 
-    var requestUrl = "http://ac.finance.naver.com:11002/ac?_callback=&q="+name+"&q_enc=euc-kr&t_koreng=1&st=111&r_lt=111";
+    var requestUrl = "http://ac.finance.naver.com:11002/ac?_callback=?&q="+name+"&q_enc=euc-kr&t_koreng=1&st=111&r_lt=111";
     console.info("requestUrl:"+requestUrl);
-    var xhr = new XMLHttpRequest();
-    xhr.open("GET", requestUrl, true);
-    xhr.onreadystatechange = function() {
-        if (xhr.readyState == 4) {
-            console.info("xhr.responseText:"+xhr.responseText);
-            var results = JSON.parse(xhr.responseText);
-            console.info("results :" + results);
-
-            for(var i in results.items[0]){
 
 
-                var items = results.items[0][i];
+    $.ajax({
+        url: requestUrl,
+        dataType : "jsonp",
+        success:function (data) {
+            //var results = JSON.parse(data);
+            console.info("results :" + data);
+            for(var i in data.items[0]){
+
+
+                var items = data.items[0][i];
 
                 var innerHtml = "<div class='col-sm-3 col-md-4'>"+
                     "<div class='thumbnail' style='height:50px;'>"+
@@ -71,8 +71,7 @@ function searchCompanyCode(name){
                 $("#search").append(innerHtml);
             }
         }
-    }
-    xhr.send();
+    });
 
 
     /*
@@ -118,6 +117,9 @@ function searchCompanyCode(name){
 }
 
 function makeInterestList(){
+    if(interestCompanyCode.length == 0){
+        return;
+    }
     var code = localStorage.getItem(STORAGE_KEY_COMPANY_CODE).split(",");
     var name = localStorage.getItem(STORAGE_KEY_COMPANY_NAME).split(",");
 
@@ -133,7 +135,7 @@ function makeInterestList(){
                     var data = data.result.areas[0].datas[0];
 
                     var updown = "";
-                    if(data.cv > data.sv){ //상
+                    if(data.nv > data.sv){ //상
                         updown = "+";
                     }else if(data.dv == data.sv){
 
