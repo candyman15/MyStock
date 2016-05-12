@@ -38,6 +38,7 @@ function attachEvent(){
 }
 
 function searchCompanyCode(name){
+    $("#panel_search").show();
     $("#search").html("");
 
     var requestUrl = "http://ac.finance.naver.com:11002/ac?_callback=&q="+name+"&q_enc=euc-kr&t_koreng=1&st=111&r_lt=111";
@@ -56,12 +57,13 @@ function searchCompanyCode(name){
                 var items = results.items[0][i];
 
                 var innerHtml = "<div class='col-sm-3 col-md-4'>"+
-                    "<div class='thumbnail' style='height:100px;'>"+
+                    "<div class='thumbnail' style='height:50px;'>"+
                     "<input type='hidden'  class='link'>" +
                     "<div class='caption'>" +
-                    "<p style='cursor: pointer; !important;'>"+items[1]+"</p>" +
-                    "<p style='cursor: pointer; !important;'>"+items[0]+"</p>" +
-                    "<button onclick=javascript:addInterest('"+items+"')>추가</button>" +
+                    "<span style='cursor: pointer; !important;'>"+items[1]+"("+items[0]+") - "+items[2]+"</span>" +
+                    "<button style='margin-left:10px;' class='btn btn-default btn-xs' onclick=javascript:addInterest('"+items+"')>" +
+                    "<span class='glyphicon glyphicon-plus' aria-hidden='true'></span>추가" +
+                    "</button>" +
                     "</div>" +
                     "</div>" +
                     "</div>";
@@ -121,19 +123,44 @@ function makeInterestList(){
 
 
     for(var i in code){
+        $.ajax({
+           url: "http://polling.finance.naver.com/api/realtime.nhn?_callback=?&query=SERVICE_ITEM%3A"+code[i],
+            dataType : "jsonp",
+            success:function (data) {
+                //var results = JSON.parse(data);
+                console.info("results :" + data);
+                if(data.resultCode == "success"){
+                    var data = data.result.areas[0].datas[0];
 
-        var innerHtml = "<div class='col-sm-3 col-md-4'>"+
-            "<div class='thumbnail' style='height:100px;'>"+
-            "<input type='hidden'  class='link'>" +
-            "<div class='caption'>" +
-            "<p style='cursor: pointer; !important;'>"+code[i]+"</p>" +
-            "<p style='cursor: pointer; !important;'>"+name[i]+"</p>" +
-            "</div>" +
-            "</div>" +
-            "</div>";
+                    var updown = "";
+                    if(data.cv > data.sv){ //상
+                        updown = "+";
+                    }else if(data.dv == data.sv){
 
-        $("#interest").append(innerHtml);
+                    }else{ // 하
+                        updown = "-";
+                    }
+                    var innerHtml = "<div class='col-sm-3 col-md-4'>"+
+                        "<div class='thumbnail' style='height:100px;'>"+
+                        "<input type='hidden'  class='link'>" +
+                        "<div class='caption'>" +
+                        "<p style='cursor: pointer; !important;'>"+data.nm+"("+data.cd+")</p>" +
+                        "<p style='cursor: pointer; !important;'>"+data.nv+"</p>" +
+                        "<p style='cursor: pointer; !important;'>"+data.cv+"("+updown+" "+data.cr+"%)</p>" +
+                        "</div>" +
+                        "</div>" +
+                        "</div>";
+
+                    $("#interest").append(innerHtml);
+                }
+            }
+        });
     }
+}
+
+function refresh(){
+    $("#interest").html("");
+    makeInterestList();
 }
 
 function addInterest(items){
@@ -154,8 +181,9 @@ function addInterest(items){
         localStorage.setItem(STORAGE_KEY_COMPANY_NAME, interestCompanyName);
 
         alert(value[1] + "이 등록되었습니다.");
+        $("#panel_search").hide();
+        refresh()
     }
-
 }
 
 
