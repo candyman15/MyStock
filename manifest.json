@@ -2,8 +2,8 @@
   "manifest_version": 2,
   "name": "My Stock(내 주식)",
   "description": "내 관심 주식을 간편하게 보기",
-  "version": "1.4.5",
-  "content_security_policy": "script-src 'self’ ‘unsafe-eval'; object-src 'self'",
+  "version": "1.5.2",
+  "content_security_policy": "script-src 'self' http://ac.finance.naver.com:11002/ http://polling.finance.naver.com/; object-src 'self'",
   "browser_action": {
     "default_icon": "images/icon128.png",
     "default_popup": "popup.html"
@@ -17,9 +17,5 @@
     "storage",
     "tab",
     "http://*/*"
-  ],
-  "content_scripts": [{
-    "js": ["js/jquery-2.1.4.min.js", "js/popup.js"],
-    "matches": ["http://*/*", "https://*/*"]
-  }]
+  ]
 }

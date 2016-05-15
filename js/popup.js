@@ -41,13 +41,14 @@ function searchCompanyCode(name){
     $("#panel_search").show();
     $("#search").html("");
 
-    var requestUrl = "http://ac.finance.naver.com:11002/ac?_callback=?&q="+name+"&q_enc=euc-kr&t_koreng=1&st=111&r_lt=111";
+    var requestUrl = "http://ac.finance.naver.com:11002/ac?_callback=&q="+name+"&q_enc=euc-kr&t_koreng=1&st=111&r_lt=111";
     console.info("requestUrl:"+requestUrl);
 
 
     $.ajax({
         url: requestUrl,
-        dataType : "jsonp",
+        dataType : "json",
+        crossDomain : true,
         success:function (data) {
             //var results = JSON.parse(data);
             console.info("results :" + data);
@@ -126,8 +127,9 @@ function makeInterestList(){
 
     for(var i in code){
         $.ajax({
-           url: "http://polling.finance.naver.com/api/realtime.nhn?_callback=?&query=SERVICE_ITEM%3A"+code[i],
-            dataType : "jsonp",
+           url: "http://polling.finance.naver.com/api/realtime.nhn?_callback=&query=SERVICE_ITEM%3A"+code[i],
+            dataType : "json",
+            crossDoamin: true,
             success:function (data) {
                 //var results = JSON.parse(data);
                 console.info("results :" + data);
