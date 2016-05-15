@@ -59,10 +59,10 @@ function searchCompanyCode(name){
 
                 var innerHtml = "<div class='col-sm-3 col-md-4'>"+
                     "<div class='thumbnail' style='height:50px;'>"+
-                    "<input type='hidden'  class='link'>" +
+                    "<input type='hidden'  value='"+items+"' class='link' >" +
                     "<div class='caption'>" +
                     "<span style='cursor: pointer; !important;'>"+items[1]+"("+items[0]+") - "+items[2]+"</span>" +
-                    "<button style='margin-left:10px;' class='btn btn-default btn-xs' onclick=javascript:addInterest('"+items+"')>" +
+                    "<button id='btnAdd"+i+"' style='margin-left:10px;' class='btn btn-default btn-xs')>" +
                     "<span class='glyphicon glyphicon-plus' aria-hidden='true'></span>추가" +
                     "</button>" +
                     "</div>" +
@@ -70,6 +70,10 @@ function searchCompanyCode(name){
                     "</div>";
 
                 $("#search").append(innerHtml);
+
+                $("#btnAdd"+i).click(function () {
+                    addInterest(items);
+                });
             }
         }
     });
@@ -170,21 +174,21 @@ function refresh(){
 function addInterest(items){
     console.info("items :" + items);
     //var company = [];
-    var value = items.split(',');
+    //var value = items.split(',');
     //for(var i=0; i < value.length; i++){
     //    company.push(value[i]);
     //}
-    console.info("value[0] :" + value[0]);
-    console.info("value[1] :" + value[1]);
+    console.info("value[0] :" + items[0]);
+    console.info("value[1] :" + items[1]);
 
-    if(value[0] != null || value[1] != null){
-        interestCompanyCode.push(value[0]);
-        interestCompanyName.push(value[1]);
+    if(items[0] != null || items[1] != null){
+        interestCompanyCode.push(items[0]);
+        interestCompanyName.push(items[1]);
 
         localStorage.setItem(STORAGE_KEY_COMPANY_CODE, interestCompanyCode);
         localStorage.setItem(STORAGE_KEY_COMPANY_NAME, interestCompanyName);
 
-        alert(value[1] + "이 등록되었습니다.");
+        alert(items[1] + "이 등록되었습니다.");
         $("#panel_search").hide();
         refresh()
     }
