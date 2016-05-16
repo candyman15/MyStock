@@ -57,15 +57,13 @@ function searchCompanyCode(name){
 
                 var items = data.items[0][i];
 
-                var innerHtml = "<div class='col-sm-3 col-md-4'>"+
-                    "<div class='thumbnail' style='height:50px;'>"+
-                    "<input type='hidden'  value='"+items+"' class='link' >" +
-                    "<div class='caption'>" +
-                    "<span style='cursor: pointer; !important;'>"+items[1]+"("+items[0]+") - "+items[2]+"</span>" +
+                var innerHtml = "<div class='col-xs-4'>"+
+                    "<div class='thumbnail' style='height:45px;'>"+
+                    "<h6>"+items[1]+"("+items[0]+") - "+items[2]+
                     "<button id='btnAdd"+i+"' style='margin-left:10px;' class='btn btn-default btn-xs')>" +
                     "<span class='glyphicon glyphicon-plus' aria-hidden='true'></span>추가" +
                     "</button>" +
-                    "</div>" +
+                    "</h6>" +
                     "</div>" +
                     "</div>";
 
@@ -148,13 +146,13 @@ function makeInterestList(){
                     }else{ // 하
                         updown = "-";
                     }
-                    var innerHtml = "<div class='col-sm-3 col-md-4'>"+
+                    var innerHtml = "<div class='col-xs-2'>"+
                         "<div class='thumbnail' style='height:100px;'>"+
                         "<input type='hidden'  class='link'>" +
                         "<div class='caption'>" +
-                        "<p style='cursor: pointer; !important;'>"+data.nm+"("+data.cd+")</p>" +
-                        "<p style='cursor: pointer; !important;'>"+data.nv+"</p>" +
-                        "<p style='cursor: pointer; !important;'>"+data.cv+"("+updown+" "+data.cr+"%)</p>" +
+                        "<h6>"+data.nm+"("+data.cd+")</h6>" +
+                        "<h6>"+data.nv+"원</h6>" +
+                        "<h6>"+data.cv+"("+updown+" "+data.cr+"%)</h6>" +
                         "</div>" +
                         "</div>" +
                         "</div>";
